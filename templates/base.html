@@ -1,0 +1,109 @@
+{% load static %}
+<!-- templates/base.html -->
+{# base.html #}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+<!-- Header -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary fs-3 d-flex align-items-center" href="/">
+                <i class="bi bi-ticket-perforated me-2 fs-2"></i> {{ app_name }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav">
+                    {% for item in menu_items %}
+                    {% if item.submenu %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ forloop.counter }}"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ item.title }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.counter }}">
+                            {% for subitem in item.submenu %}
+                            {% if subitem.login_required == None or subitem.login_required and is_authenticated or subitem.login_required == False and not is_authenticated %}
+                            <li><a class="dropdown-item {% if subitem.active %}active{% endif %}" href="{{ subitem.url }}">{{ subitem.title }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% else %}
+                    {% if item.login_required == None or item.login_required and is_authenticated or item.login_required == False and not is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if item.active %}active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="py-4 mt-4 bg-light border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>{{ app_name }}</h5>
+                <p>{{ footer.description }}</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Ссылки</h5>
+                <ul class="list-unstyled">
+                    {% for link in footer.links %}
+                    <li><a href="{{ link.url }}" class="text-decoration-none">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Контакты</h5>
+                <address>
+                    {{ footer.address }}<br>
+                    <abbr title="Телефон">Т:</abbr> {{ footer.phone }}<br>
+                    <a href="mailto:{{ footer.email }}" class="text-decoration-none">{{ footer.email }}</a>
+                </address>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p class="mb-0">&copy; {{ current_year }} {{ app_name }}. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
