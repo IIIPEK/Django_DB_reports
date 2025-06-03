@@ -19,17 +19,19 @@ DEFAULT_MENU = [
     {
         'title': 'Отчеты',
         'submenu': [
-            {'title': 'Просмотреть', 'url_name': 'main:index', 'login_required': None},
-            {'title': 'Изменить', 'url_name': 'main:edit', 'login_required': True},
+            {'title': '<i class="bi bi-card-list"></i> Просмотреть', 'url_name': 'main:index', 'login_required': None},
+            {'title': '<i class="bi bi-pencil-square"></i> Изменить', 'url_name': 'main:edit', 'login_required': True},
+            {'title': '<i class="bi bi-alarm"></i> Рассылки', 'url_name': 'main:alerts', 'login_required': True},
         ],
     },
     {
-        'title': 'Пользователь',
+        'title': '<i class="bi bi-person-fill"></i> Пользователь',
         'submenu': [
-            {'title': 'Профиль', 'url_name': 'users:profile', 'login_required': True},
-            {'title': 'Выход', 'url_name': 'users:logout', 'login_required': True},
-            {'title': 'Регистрация', 'url_name': 'users:register', 'login_required': False},
-            {'title': 'Вход', 'url_name': 'users:login', 'login_required': False},
+            {'title': '<i class="bi bi-person-badge-fill"></i> Профиль', 'url_name': 'users:profile', 'login_required': True},
+            {'title': '<i class="bi bi-person-fill-gear"></i> Редактировать профиль', 'url_name': 'users:profile_edit', 'login_required': True},
+            {'title': '<i class="bi bi-box-arrow-right"></i> Выход', 'url_name': 'users:logout', 'login_required': True},
+            {'title': '<i class="bi bi-person-fill-add"></i> Регистрация', 'url_name': 'users:register', 'login_required': False},
+            {'title': '<i class="bi bi-box-arrow-in-right"></i> Вход', 'url_name': 'users:login', 'login_required': False},
         ],
     },
     {'title': 'Контакты', 'url_name': 'contacts:contacts', 'active': False, 'login_required': None},
@@ -37,15 +39,15 @@ DEFAULT_MENU = [
 
 # Footer data
 FOOTER_INFO = {
-    'description': 'Система бронирования мероприятий',
+    'description': 'Генератор отчетов и рассылок',
     'links': [
         {'title': 'Политика конфиденциальности', 'url': '/privacy/'},
         {'title': 'Условия использования', 'url': '/terms/'},
         {'title': 'Карта сайта', 'url': '/sitemap/'},
     ],
-    'address': 'ул. Примерная, 12, г. Москва',
-    'phone': '+7987 51234567',
-    'email': 'info@example.ru',
+    'address': 'Arenduse 6, Kohtla-Järve, Estonia',
+    'phone': '+372 5124595',
+    'email': 'admin@freen.com',
 }
 
 def process_menu(items, path):

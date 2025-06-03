@@ -1,16 +1,12 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Профиль</h5>
-                    <p class="card-text">Здесь вы можете изменить свой профиль.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container mt-4">
+    <h2>Профиль</h2>
+    <table class="table">
+        <tr><th>ФИО</th><td>{{ user.fullname }}</td></tr>
+        <tr><th>Email</th><td>{{ user.email }}</td></tr>
+        <tr><th>Телефон</th><td>{{ user.phone }}</td></tr>
+    </table>
+    <a href="{% url 'users:profile_edit' %}" class="btn btn-primary">Редактировать</a>
 </div>
-{% endblock content %}
+{% endblock %}
